@@ -33,6 +33,7 @@ namespace Quest
                 4, 20
             );
 
+            
             // "Awesomeness" is like our Adventurer's current "score"
             // A higher Awesomeness is better
 
@@ -42,11 +43,6 @@ namespace Quest
             int minAwesomeness = 0;
             int maxAwesomeness = 100;
 
-            // Make a new "Adventurer" object using the "Adventurer" class
-            Console.Write("Please enter your name: ");
-            string adventurerName = Console.ReadLine();
-            Adventurer theAdventurer = new Adventurer(adventurerName);   
-    
             // A list of challenges for the Adventurer to complete
             // Note we can use the List class here because have the line "using System.Collections.Generic;" at the top of the file.
             List<Challenge> challenges = new List<Challenge>()
@@ -57,6 +53,11 @@ namespace Quest
                 guessRandom,
                 favoriteBeatle
             };
+
+            // Make a new "Adventurer" object using the "Adventurer" class
+            Console.Write("Please enter your name: ");
+            string adventurerName = Console.ReadLine();
+            Adventurer theAdventurer = new Adventurer(adventurerName); 
 
             // Loop through all the challenges and subject the Adventurer to them
             foreach (Challenge challenge in challenges)
@@ -77,6 +78,20 @@ namespace Quest
             else
             {
                 Console.WriteLine("I guess you did...ok? ...sorta. Still, you should get out of my sight.");
+            }
+
+            Console.WriteLine("Would you like to play again? yes/no ");
+            string answer = Console.ReadLine();
+
+            while (answer.ToUpper() == "YES")
+            {
+                foreach(Challenge challenge in challenges)
+                {
+                    challenge.RunChallenge(theAdventurer);
+                }
+
+                Console.WriteLine("Would you like to play again? yes/no ");
+                answer = Console.ReadLine();
             }
         }
     }
