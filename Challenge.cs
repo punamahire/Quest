@@ -12,6 +12,7 @@ namespace Quest
         private int _correctAnswer;
         private int _awesomenessChange;
 
+        public static int successfulAttempt = 0;
 
         // A constructor for the Challenge
         // We can tell it's a constructor because it has the same name as the class 
@@ -37,7 +38,7 @@ namespace Quest
             if (isNumber && numAnswer == _correctAnswer)
             {
                 Console.WriteLine("Well Done!");
-
+                successfulAttempt++;
                 // Note how we access an Adventurer object's property
                 adventurer.Awesomeness += _awesomenessChange;
             }

@@ -33,6 +33,9 @@ namespace Quest
                 4, 20
             );
 
+            Challenge numOfHours = new Challenge("How many number of hours are there in a day?",24, 10);
+            Challenge starsInGreatBear = new Challenge("How many stars are there is a Great Bear?", 7, 20);
+            Challenge statesInUs = new Challenge("How many states are there in U.S?", 50, 10);
             
             // "Awesomeness" is like our Adventurer's current "score"
             // A higher Awesomeness is better
@@ -43,7 +46,33 @@ namespace Quest
             int minAwesomeness = 0;
             int maxAwesomeness = 100;
 
-            // A list of challenges for the Adventurer to complete
+            List<string> colors = new List<string>
+            {
+                "red",
+                "yellow",
+                "blue"
+            };
+
+            Robe robeObj = new Robe
+            {
+                Colors = colors,
+                Length = 50
+            };
+
+            Hat hatObj = new Hat
+            {
+                ShininessLevel = 4
+            };
+
+            Prize prizeObj = new Prize("Trophy");
+            // Make a new "Adventurer" object using the "Adventurer" class
+            Console.Write("Please enter your name: ");
+            string adventurerName = Console.ReadLine();
+            Adventurer theAdventurer = new Adventurer(adventurerName, robeObj, hatObj); 
+
+            Console.WriteLine(theAdventurer.GetDescription());
+
+             // A list of challenges for the Adventurer to complete
             // Note we can use the List class here because have the line "using System.Collections.Generic;" at the top of the file.
             List<Challenge> challenges = new List<Challenge>()
             {
@@ -51,18 +80,33 @@ namespace Quest
                 theAnswer,
                 whatSecond,
                 guessRandom,
-                favoriteBeatle
+                favoriteBeatle,
+                numOfHours,
+                starsInGreatBear,
+                statesInUs
             };
 
-            // Make a new "Adventurer" object using the "Adventurer" class
-            Console.Write("Please enter your name: ");
-            string adventurerName = Console.ReadLine();
-            Adventurer theAdventurer = new Adventurer(adventurerName); 
+            static int GetRandomChallenge()
+            {
+                List<int> numbers = new List<int>() { 0, 1, 2, 3, 4, 5, 6, 7 };
+ 
+                Random rnd = new Random();
+                int randIndex = rnd.Next(numbers.Count);
+                int random = numbers[randIndex];
+
+                return random;
+            }
 
             // Loop through all the challenges and subject the Adventurer to them
-            foreach (Challenge challenge in challenges)
+            // foreach (Challenge challenge in challenges)
+            // {
+            //     challenge.RunChallenge(theAdventurer);
+            // }
+
+            for (int i = 0; i < 5; i++)
             {
-                challenge.RunChallenge(theAdventurer);
+                int randomIndex = GetRandomChallenge();
+                challenges[randomIndex].RunChallenge(theAdventurer);
             }
 
             // This code examines how Awesome the Adventurer is after completing the challenges
@@ -80,14 +124,26 @@ namespace Quest
                 Console.WriteLine("I guess you did...ok? ...sorta. Still, you should get out of my sight.");
             }
 
+            prizeObj.ShowPrize(theAdventurer);
+            Console.WriteLine($"Successful attempts: {Challenge.successfulAttempt}");
+
             Console.WriteLine("Would you like to play again? yes/no ");
             string answer = Console.ReadLine();
 
             while (answer.ToUpper() == "YES")
             {
-                foreach(Challenge challenge in challenges)
+                // foreach(Challenge challenge in challenges)
+                // {
+                //     challenge.RunChallenge(theAdventurer);
+                // }
+                //phase 8
+                Challenge.successfulAttempt = Challenge.successfulAttempt * 10;
+                theAdventurer.Awesomeness += Challenge.successfulAttempt;
+
+                for (int i = 0; i < 5; i++)
                 {
-                    challenge.RunChallenge(theAdventurer);
+                    int randomIndex = GetRandomChallenge();
+                    challenges[randomIndex].RunChallenge(theAdventurer);
                 }
 
                 Console.WriteLine("Would you like to play again? yes/no ");
