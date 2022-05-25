@@ -53,23 +53,7 @@ namespace Quest
 
         public string GetDescription()
         {
-            string colors = "";
-            for(int i = 0; i< ColorfulRobe.Colors.Count; i++)
-            {
-                if(i == 0)
-                {
-                    colors += $"{ColorfulRobe.Colors[i]}";
-                }
-                else if(i == ColorfulRobe.Colors.Count-1)
-                {
-                    colors += $", and {ColorfulRobe.Colors[i]}";
-                }
-                else
-                {
-                    colors += $", {ColorfulRobe.Colors[i]}";
-                }
-            }
-
+            string colors = $"{ColorfulRobe.Colors[0]}, {ColorfulRobe.Colors[1]}, and {ColorfulRobe.Colors[2]}";
             return $"{Name} is wearing a {colors} color robe of length {ColorfulRobe.Length} and a hat which is {HatObj.ShininessDescription()} ";
         }
     }
